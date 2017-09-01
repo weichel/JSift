@@ -97,12 +97,12 @@ var Comm = class Comm {
 		this.query = {};
 	};
 	
-	InitServer(directory,port){
+	initServer(directory,port){
 		this.server = new Server(directory,port);
 		
 	};
 	
-	SendQuery(url,cb){
+	sendQuery(url,cb){
 		this.query[url] = new Query(url, cb);
 		
 	};
