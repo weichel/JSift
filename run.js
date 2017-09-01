@@ -1,13 +1,16 @@
 'use strict';
-let request = require('request');
-let cheerio = require('cheerio');
-
 global.window = global.document = global;
-require('./utils');
 
 
 
+require('./Comm');
+
+var comm = new Comm();
 
 
 
+comm.SendQuery("http://www.google.com",function(){
+	
+	console.log(this.$);
+});
 
