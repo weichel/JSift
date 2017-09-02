@@ -4,7 +4,7 @@
 /* =======================================================
 				HTTP Server Class
 				 - Uses Express HTTP Routing
-				 - uses Socket.IO Server
+				 - Uses Socket.IO Server
 ======================================================= */
 var Server = class Server {
 	constructor(directory,port){
@@ -89,6 +89,8 @@ var Query = class Query {
 };
 
 
+	
+
 
 var Comm = class Comm {
 	constructor(){
@@ -115,6 +117,10 @@ var Comm = class Comm {
 
 
 module.exports = global.Comm = Comm;
+
+
+
+
 
 
 
