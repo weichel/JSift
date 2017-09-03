@@ -12,9 +12,10 @@ let sift = new Sift();
 
 
 comm.sendQuery("http://www.google.com",function(){
-	
-	sift.addPage("http://www.google.com",this.$)
-	
+
+	let page = sift.addPage("http://www.google.com",this.$);
+
+	data.newRecord("http://www.google.com",page);
+
+
 });
-
-

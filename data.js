@@ -4,20 +4,29 @@
 
 
 var Data = class Data {
-	constructor(collections){
+	constructor(){
 		//=== Requires ===//
 		let mongojs = require('mongojs');
-		
+
 		//=== Register Properties ===//
-		this.collections = collections;
-		this.db =  mongojs('data', collections);
-		
+
+		this.db =  mongojs('data', ['pages']);
+
 	};
-	
+
+
+	newRecord(key,record,safe){
+
+		if (safe){
+			this.db.pages.find( { _id: 'abc' }, function(err,docs){
+				if (docs.length==0)this.db.pages.save({_id: key, record: record});
+			});
+		}else this.db.pages.save({_id: key, record: record});
+	};
 
 };
 
-
+//this.db.pages.find({ _id: key }, function(...) { ... });
 
 
 
@@ -34,4 +43,3 @@ db.queries.remove({});
 */
 
 module.exports = global.Data = Data;
-
