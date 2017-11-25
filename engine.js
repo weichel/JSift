@@ -12,32 +12,21 @@ var Engine = class Engine {
 var Deck = class Engine_Deck {
   constructor(data){
     this.stack = data.stack;
+
   };
 };
 
-var Stack = class Engine_Stack {
+var Zone = class Engine_Zone {
   constructor(data){
-
-    this.cards = data.cards;
-    //this.index = data.index;
-  };
-
-  // RANDOMIZE THE STACK OF CARDS
-  randomize(){
+    this.id = data.id;
+    this.name = data.name;
 
   };
-  // ADDS A CARD TO THE STACK
-  //    card - card object to add
-  //    mode - 0 to add to top, 1 to add to bottom
-  add(card,mode){
-
-  };
-
-  // ADDS A STACK TO THE Stack
-  //    stack - stack object to add
-  //    mode - 0 to add to top, 1 to add to bottom
-  combine(stack,mode){
-
-  };
-
 };
+
+
+
+
+
+
+module.exports = global.Engine = Engine;
