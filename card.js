@@ -4,10 +4,11 @@ var Card = class Card {
   constructor(data){
 
     this.id = data.id;
-    this.name = data.name;
-    this.class = data.class;
-    this.type = data.type;
-    this.abilities = data.abilities;
+    this.name = data.name;			 //Name of the card
+    this.type = data.type;		     //Type of the card
+	this.cost = data.cost;			 //Cost to play the card
+	this.health = data.health;		 //Total health of the card
+    this.abilities = data.abilities; //List of abilities
   }
 
 
@@ -18,12 +19,10 @@ var Ability = class Card_Ability {
   constructor(data){
     this.id = data.id;
     this.name = data.name;
+	this.type = data.type;
 
   }
 };
-
-
-
 
 
 
@@ -50,21 +49,27 @@ var Stack = class Card_Stack {
   };
   // ADDS A CARD TO THE STACK
   //    card - card object to add
-  //    mode - 0 to add to top, 1 to add to bottom
-  add(card,mode){
-    if (mode)this.cards.push(card);
+  //    index - position to add card to, -1 for end
+  add(card,index){
+    if (inxex != -1)this.cards.splice(index, 0, card);
     else this.cards.unshift(card);
   };
 
   // ADDS A STACK TO THE STACK
   //    stack - stack object to add
   //    mode - 0 to add to top, 1 to add to bottom
-  combine(stack,mode){
+  combine(stack,index){
     if (mode)this.cards.concat(stack.cards);
     else this.cards = stack.cards.concat(this.cards);
   };
 
 };
+
+
+
+
+
+
 
 
 

@@ -11,6 +11,10 @@ let sift = new Sift();
 
 
 
+comm.initServer("/public",1337);
+
+
+
 comm.sendQuery("http://www.google.com",function(){
 
 	let page = sift.addPage("http://www.google.com",this.$);

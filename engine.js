@@ -1,27 +1,141 @@
 'use strict';
 
+//Engine class. This runs all the player game servers and menus. No cheaters, the server always wins. 
 var Engine = class Engine {
   constructor(data){
 
-
   };
-
-
 };
+
+var Game_Server = class Engine_Game_Server {
+  constructor(data){
+    
+  };
+	
+};
+
+var Menu = class Engine_Menu {
+	constructor(data){
+		
+	};
+};
+
+
+
+
+
+
+
+
+
+
+
 
 var Deck = class Engine_Deck {
   constructor(data){
     this.stack = data.stack;
-
   };
 };
 
-var Zone = class Engine_Zone {
+var Hand = class Engine_Hand {
   constructor(data){
-    this.id = data.id;
-    this.name = data.name;
-
+    this.stack = data.stack;
   };
+};
+
+var Recycle = class Engine_Recyle {
+  constructor(data){
+
+  };	  
+};
+
+
+var Combat = class Engine_Combat {
+  constructor(data){
+	  
+  };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var Library = class Engine_Library {
+//The library class creates card objects. 
+	 
+	 
+	constructor(data){
+		
+		
+		
+		
+	};
+	
+	card(id){
+		
+		switch(id){
+			
+			
+			case "1":
+				var o = Card({ 
+								id: "1",
+								name: "Marketplace",
+								type: "Building",
+								cost: "CC"
+								health: 2,
+								abilities: [ [1, 1] ],
+				});
+				
+				break;
+			case "2":
+				var o = Card({ 
+								id: "2",
+								name: "Parts Factory",
+								type: "Building",
+								cost: "MM",
+								health: 2,
+								abilities: [ [2, 1] ],
+				});
+			
+				break;
+			
+			default:
+	};
+	
+	
+	ability(id,magnitude){
+		switch(id){
+			case 1: //
+			
+				break;
+			case 2: //
+				
+				break;
+			case 3: //
+				
+				break;
+		};
+	};
 };
 
 

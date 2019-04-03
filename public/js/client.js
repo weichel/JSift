@@ -1,112 +1,92 @@
-class Player {
-	constructor(color) {
-			this.pieces = null;
-			this.color = color;
-			this.canCastle = false;
-			this.isInCheck = false;
-			this.isCheckmate = false;
-			this.username = "";
-		}
-}
-
-class GameSpace {
-	constructor(i,j) {
-		this.row = i;
-		this.column = j;	
-		this.color = function() { //white = 1
-			var row = isOdd(i);
-			var col = isOdd(j);
-			if (row && col) {
-				return 0;
-			}
-			else if (row || col) {
-				return 1;
-			}
-			else {
-				return 0;
-			}
-		}
-		this.isInCheck = false;
-		this.threateningPieces = null;
-		this.occupiedBy = null;
-	}
-}
-
-class GameBoard {
-	constructor() {
-		this.spaces = new Array(8);
-		for (var i=1; i<9; i++) {
-			this.spaces[i] = new Array(8);
-			for (var j=1;j<9; j++) {
-				this.spaces[i][j] = new GameSpace(i,j)
-			}
-		}
-	}
-	
-	// look at each piece threatening king space:
-		// record spaces threatening check based on type of piece
-	// for each piece threatening check:
-		// add to array
-	// for each home piece, record spaces it can move to:
-		// add to array 2
-	// cross reference array and array 2
-		// if array 2 member can occupy an array 1 space to block
-			// check if move induces check (look at threats)
-				// if induces check - fail
-	//succeed
-			
-	
-	intializeBoard : function(white, black) {
-		for (var j=1; j<9; i++) {
-			this.spaces[2][j].occupiedBy = new Pawn(white);
-			this.spaces[7][j].occupiedBy = new Pawn(black);
-		}
-		
-		// White Rooks
-		this.spaces[1][1].occupiedBy = new Rook(white);
-		this.spaces[1][8].occupiedBy = new Rook(white);
-		// Black Rooks
-		this.spaces[8][1].occupiedBy = new Rook(white);
-		this.spaces[8][8].occupiedBy = new Rook(white);
-		
-		// White Knights lel
-		this.spaces[1][2].occupiedBy = new Knight(white);
-		this.spaces[1][7].occupiedBy = new Knight(white);
-		// Black Knights 
-		this.spaces[8][2].occupiedBy = new Knight(black);
-		this.spaces[8][7].occupiedBy = new Knight(black);
-		
-		// White Bishops
-		this.spaces[1][3].occupiedBy = new Bishop(white);
-		this.spaces[1][6].occupiedBy = new Bishop(white);
-		// Black Bishops
-		this.spaces[8][3].occupiedBy = new Bishop(black);
-		this.spaces[8][6].occupiedBy = new Bishop(black);
-		
-		// White Queen
-		this.spaces[1][5].occupiedBy = new Queen(white);
-		// Black Queen 
-		this.spaces[8][5].occupiedBy = new Queen(black);
-		
-		// White King
-		this.spaces[1][4].occupiedBy = new King(white);
-		// Black King
-		this.spaces[8][4].occupiedBy = new King(black);
-		
-	}
-)
-
-class GameEngine {
-	this.player1 = new Player();
-	this.player2 = new Player();
-	this.board = new GameBoard();
-	this.board.initializeBoard();
-}
-
-
 $(document).ready(function(){
 	
-	alert(1);
+	
+	var canvas = document.getElementById("renderCanvas"); // Get the canvas element 
+	var engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
+
+	/******* Add the create scene function ******/
+	var createScene = function () {
+
+		// Create the scene space
+		var scene = new BABYLON.Scene(engine);
+
+		// Add a camera to the scene and attach it to the canvas
+		var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 50, new BABYLON.Vector3(0,0,0), scene);
+		camera.attachControl(canvas, true);
+
+
+		var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(1, 1, 0), scene);
+		var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 1, -1), scene);
+
+
+		var board = BABYLON.MeshBuilder.CreateBox("board", {height: 24, width: 24, depth: 4, updatable: true, isPickable: false, sideOrientation: BABYLON.Mesh.DOUBLESIDE});
+
+
+		
+		var tile = new BABYLON.StandardMaterial("tile", scene);
+		tile.diffuseTexture = new BABYLON.Texture("/images/tile.png", scene);
+
+		tile.diffuseTexture.uScale = 6;
+		tile.diffuseTexture.vScale = 6;
+
+		board.material = tile;
+
+
+
+		for ( var i = 0; i < 6; i++){
+			for (var j = 0; j < 6; j++){
+				
+				var transparent = new BABYLON.StandardMaterial("transparent/"+i+"-"+j, scene);
+				transparent.alpha = 0.1;
+				
+				var id = "spot/"+i+"-"+j;
+				var block = BABYLON.MeshBuilder.CreateBox(id, {height: 4, width: 4, depth: 6, updatable: true, isPickable: true, sideOrientation: BABYLON.Mesh.DOUBLESIDE});
+				block.actionManager = new BABYLON.ActionManager(scene);
+				
+				block.position = new BABYLON.Vector3( i*4 - 12 + 2, j*4 - 12 + 2, 0 );
+				block.material = transparent;
+	
+				block.actionManager.registerAction(new BABYLON.SetValueAction(BABYLON.ActionManager.OnPointerOutTrigger, block.material, "alpha", 0.1));
+				block.actionManager.registerAction(new BABYLON.SetValueAction(BABYLON.ActionManager.OnPointerOverTrigger, block.material, "alpha", 0.5));
+				block.actionManager.registerAction(new BABYLON.SetValueAction(BABYLON.ActionManager.OnPointerOutTrigger, block.material, "emissiveColor", block.material.emissiveColor));
+				block.actionManager.registerAction(new BABYLON.SetValueAction(BABYLON.ActionManager.OnPointerOverTrigger, block.material, "emissiveColor", BABYLON.Color3.White()));
+				block.actionManager.registerAction(new BABYLON.InterpolateValueAction(BABYLON.ActionManager.OnPointerOutTrigger, block, "scaling", new BABYLON.Vector3(1, 1, 1), 150));
+				block.actionManager.registerAction(new BABYLON.InterpolateValueAction(BABYLON.ActionManager.OnPointerOverTrigger, block, "scaling", new BABYLON.Vector3(1.1, 1.1, 1.1), 150));
+
+			
+	
+			}
+		}
+
+
+		return scene;
+	};
+	/******* End of the create scene function ******/    
+
+	var scene = createScene(); //Call the createScene function
+
+	// Register a render loop to repeatedly render the scene
+	engine.runRenderLoop(function () { 
+			scene.render();
+	});
+
+	// Watch for browser/canvas resize events
+	window.addEventListener("resize", function () { 
+			engine.resize();
+	});	
+
+	window.addEventListener("click", function () {
+
+		var pickResult = scene.pick(scene.pointerX, scene.pointerY);
+		
+		if (pickResult.hit){
+			
+			//pickResult.pickedMesh.material.alpha = 1;
+			
+		}
+	});
+
+
 	
 	var socket = io();
 
