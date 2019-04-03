@@ -9,8 +9,19 @@ var CardTypes = {
   ]
   'Spell',
   'Order',
+  'Contract',
   'Decree',
   'Structure',
   'Unit',
 
 }
+
+
+
+name
+type
+subtype
+art
+abilities
+cost
+rarity

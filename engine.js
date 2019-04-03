@@ -7,25 +7,6 @@ var Engine = class Engine {
   };
 };
 
-var Game_Server = class Engine_Game_Server {
-  constructor(data){
-    
-  };
-	
-};
-
-var Menu = class Engine_Menu {
-	constructor(data){
-		
-	};
-};
-
-
-
-
-
-
-
 
 
 
@@ -37,56 +18,13 @@ var Deck = class Engine_Deck {
   };
 };
 
-var Hand = class Engine_Hand {
-  constructor(data){
-    this.stack = data.stack;
-  };
-};
-
-var Recycle = class Engine_Recyle {
-  constructor(data){
-
-  };	  
-};
-
-
-var Combat = class Engine_Combat {
-  constructor(data){
-	  
-  };
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
 var Library = class Engine_Library {
 //The library class creates card objects. 
-	 
-	 
 	constructor(data){
-		
-		
 		
 		
 	};

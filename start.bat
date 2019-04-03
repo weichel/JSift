@@ -1,1 +1,1 @@
-"C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe" --dbpath "C:\Users\iamth\OneDrive\Documents\GitHub\JSift\data"
+"C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath "C:\Users\iamth\OneDrive\Documents\GitHub\JSift\data"
